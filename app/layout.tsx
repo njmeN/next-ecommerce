@@ -1,16 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/common/header";
+import NewsletterSection from "@/components/common/newsLetter";
+import Footer from "@/components/common/footer";
+import { SessionProvider as NextAuthSessionProvider } from "next-auth/react";
+import { SessionProvider } from "@/lib/contexts/session-context";
+import { Toaster } from "sonner";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,10 +22,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <head>
+         <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Spartan:wght@400;500;600;700&display=swap"
+        />
+      </head>
+     
+      <body >
+      <NextAuthSessionProvider>
+          <SessionProvider>
+        <Header/>
         {children}
+        <NewsletterSection/>
+        <Footer/>
+        </SessionProvider>
+        </NextAuthSessionProvider>
+        <Toaster richColors position="top-center" />
       </body>
     </html>
   );
