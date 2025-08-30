@@ -551,6 +551,7 @@ body{
   line-height: 42px;
   text-align: center;
   position: relative;
+  cursor: pointer;
 }
 
 .action__btn::after,
@@ -634,6 +635,7 @@ body{
 }
 
 .cart__btn{
+  
   position: absolute;
   bottom: 1.6rem;
   right: 1.25rem;
@@ -678,6 +680,12 @@ body{
   background-color: var(--first-color);
   border-color: var(--first-color);
   color: var(--body-color);
+}
+
+.action__icon{
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
 }
 /*=============== DEALS ===============*/
 .deals__container{

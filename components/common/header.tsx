@@ -68,12 +68,19 @@ export default function Header() {
             ))}
           </ul>
 
-          <div className="header__search">
-            <input type="text" placeholder="Search for items..." className="form__input" disabled />
-            <button className="search__btn">
-              <Search size={18}  className='icon'/>
-            </button>
-          </div>
+          <form action="/shop" method="GET" className="header__search">
+  <input
+    type="text"
+    name="search"
+    placeholder="Search for items..."
+    className="form__input"
+    defaultValue=""
+  />
+  <button type="submit" className="search__btn">
+    <Search size={18} className="icon" />
+  </button>
+</form>
+
         </div>
 
         <div className="header__user-actions">

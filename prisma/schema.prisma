@@ -86,6 +86,7 @@ model Product {
   sku         String   @unique
   images      String[]
   availability Int
+  rating      Float    @default(5)
   reviews     Review[] @relation("ProductReviews")
   category    String
   cartItems   CartItem[]
