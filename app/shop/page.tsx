@@ -6,6 +6,8 @@ import { Prisma } from "@prisma/client";
 import Image from "next/image";
 import { ChevronsRight, Eye, Heart, ShoppingCart } from "lucide-react";
 import RatingStars from "@/components/products/RatingStars";
+import AddToCartButton from "./addToCartButton";
+import Loading from "@/components/common/loading";
 
 const PRODUCTS_PER_PAGE = 8;
 
@@ -17,6 +19,7 @@ export default async function ShopPage({
   const page = parseInt(searchParams.page || "1");
   const skip = (page - 1) * PRODUCTS_PER_PAGE;
   const search = searchParams.search?.toLowerCase() || "";
+  
 
   const whereClause: Prisma.ProductWhereInput = search
     ? {
@@ -76,7 +79,8 @@ export default async function ShopPage({
       {/* Products */}
       <section className="products section container">
         <div className="products__container grid">
-          {products.map((product) => (
+        {products.length === 0 ?<Loading/>:
+          products.map((product) => (
             <div key={product.id} className="product__item">
               <div className="product__banner">
                 <div className="product__images">
@@ -120,9 +124,7 @@ export default async function ShopPage({
                 <div className="product__price flex">
                   <span className="new__price">${product.price}</span>
                 </div>
-                <button className="action__btn cart__btn" aria-label="Add To Cart">
-                  <ShoppingCart size={16} strokeWidth={1} style={{ color: "hsl(154, 13%, 32%)" }} />
-                </button>
+                <AddToCartButton productId={product.id} />
               </div>
             </div>
           ))}

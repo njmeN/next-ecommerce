@@ -6,6 +6,7 @@ import Footer from "@/components/common/footer";
 import { SessionProvider as NextAuthSessionProvider } from "next-auth/react";
 import { SessionProvider } from "@/lib/contexts/session-context";
 import { Toaster } from "sonner";
+import { CartProvider } from "@/lib/contexts/cart-context";
 
 
 
@@ -32,10 +33,12 @@ export default function RootLayout({
       <body >
       <NextAuthSessionProvider>
           <SessionProvider>
+          <CartProvider>
         <Header/>
         {children}
         <NewsletterSection/>
         <Footer/>
+        </CartProvider>
         </SessionProvider>
         </NextAuthSessionProvider>
         <Toaster richColors position="top-center" />

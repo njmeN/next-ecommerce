@@ -8,6 +8,7 @@ import { SessionUser } from "../types/session";
 type SessionContextType = {
   user: SessionUser | null;
   setUser: (user: SessionUser) => void;
+  status: "loading" | "authenticated" | "unauthenticated";
 };
 
 const SessionContext = createContext<SessionContextType | undefined>(undefined);
@@ -31,7 +32,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   }, [session?.user, status]); 
 
   return (
-    <SessionContext.Provider value={{ user, setUser }}>
+    <SessionContext.Provider value={{ user, setUser , status}}>
       {children}
     </SessionContext.Provider>
   );

@@ -8,12 +8,14 @@ import logo from '@/public/images/logo.svg'
 import Image from 'next/image'
 import { signOut} from "next-auth/react"
 import { useSessionContext } from '@/lib/contexts/session-context'
+import { useCart } from '@/lib/contexts/cart-context';
+import Loading from './loading'
 
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false)
   const toggleMenu = () => setShowMenu(!showMenu)
-  const { user } = useSessionContext();
-  console.log("Header context user:", user);
+  const { user,  status } = useSessionContext();
+  const { cart, loading } = useCart();
 
   return (
     <header className="header">
@@ -24,7 +26,8 @@ export default function Header() {
             <span>Our location</span>
           </div>
           <p className="header__alert-news">Super Value Deals - Save more with coupons</p>
-          {user ? (
+          {status=="loading"?  <div className="header__top-action">loading ...</div> :
+          user ? (
             <div className="header__top-action">
               <Link href="/account">{user.username}</Link> {/* Link to account page */}
               {" - "}
@@ -91,7 +94,8 @@ export default function Header() {
 
           <Link href="/cart" className="header__action-btn">
             <ShoppingCart size={20} className='icon' />
-            <span className="count">0</span>
+            {loading ?<span className="count">...</span> : <span className="count">{cart.reduce((acc, item) => acc + item.quantity, 0)}</span>}
+            
           </Link>
 
           <div className="header__action-btn nav__toggle" onClick={toggleMenu}>
