@@ -62,7 +62,7 @@ export default function Header() {
           </div>
 
           <ul className="nav__list">
-            {['/', '/shop', '/account', '/compare', '/login'].map((path, index) => (
+            {['/', '/shop', '/account', '/login'].map((path, index) => (
               <li key={index} className="nav__item">
                 <Link href={path} className="nav__link">
                   {path === '/' ? 'Home' : path.replace('/', '').replace('-', ' ')}

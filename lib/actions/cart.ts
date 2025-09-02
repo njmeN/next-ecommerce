@@ -124,7 +124,7 @@ export async function addToCart(productId: string): Promise<{ ok: boolean; messa
       return { ok: true, message: "Cart updated" };
     }catch (error) {
       console.error("Updating cart failed:", error)
-      return { ok: false, message: "Failed to update cart" }
+      return { ok: false, message: "Failed to remove item from cart" }
     }
   
     

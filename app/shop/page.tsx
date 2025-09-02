@@ -1,4 +1,3 @@
-// app/shop/page.tsx
 import React from "react";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
@@ -97,7 +96,7 @@ export default async function ShopPage({
                 </div>
                 <div className="product__actions">
                   <Link
-                    href={`/product/${product.id}`}
+                    href={`/shop/${product.id}`}
                     className="action__btn action__icon"
                     aria-label="Quick View"
                   >
@@ -115,7 +114,7 @@ export default async function ShopPage({
 
               <div className="product__content">
                 <span className="product__category">{product.category}</span>
-                <Link href={`/product/${product.id}`}>
+                <Link href={`/shop/${product.id}`}>
                   <h3 className="product__title">{product.title}</h3>
                 </Link>
                 <div className="product__rating">
