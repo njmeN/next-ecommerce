@@ -4,7 +4,13 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import noImage from "@/public/images/no-image-svgrepo-com.svg";
 
-export default async function OrderDetailPage({ params }: { params: { id: string } }) {
+type Props = {
+  params: Promise<{ id: string }>;  
+};
+
+export default async function UserOrderDetailPage({ params }: Props) {
+  const { id } = await params;  
+
   const session = await auth();
   if (!session?.user) return notFound();
 
@@ -12,12 +18,12 @@ export default async function OrderDetailPage({ params }: { params: { id: string
   try {
     order = await prisma.order.findUnique({
       where: {
-        id: params.id,
+        id, 
         userId: session.user.id,
       },
     });
   } catch (err) {
-    return <p className="container error">Failed to fetch orders</p>
+    return <p className="container error">Failed to fetch orders</p>;
   }
 
   if (!order) return notFound();
@@ -58,7 +64,6 @@ export default async function OrderDetailPage({ params }: { params: { id: string
                     height={60}
                     className="table__img"
                     loading="lazy"
-                  
                   />
                 </td>
                 <td>{item.title}</td>

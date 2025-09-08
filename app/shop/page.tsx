@@ -15,12 +15,14 @@ const PRODUCTS_PER_PAGE = 8;
 export default async function ShopPage({
   searchParams,
 }: {
-  searchParams: { page?: string; search?: string; category?: string };
+  searchParams: Promise<{ page?: string; search?: string; category?: string }>;  
 }) {
-  const page = parseInt(searchParams?.page ?? "1", 10);
+  const resolvedParams = await searchParams;  
+
+  const page = parseInt(resolvedParams?.page ?? "1", 10); 
   const skip = (page - 1) * PRODUCTS_PER_PAGE;
-  const search = searchParams?.search?.toLowerCase() ?? "";
-  const category = searchParams?.category ?? "";
+  const search = resolvedParams?.search?.toLowerCase() ?? "";  
+  const category = resolvedParams?.category ?? ""; 
 
   const whereClause: Prisma.ProductWhereInput = {
     AND: [
@@ -88,7 +90,7 @@ export default async function ShopPage({
           {products.length === 0 ? (
             <Loading />
           ) : (
-            products.map((product:Product) => (
+            products.map((product: Product) => (
               <div key={product.id} className="product__item">
                 <div className="product__banner">
                   <div className="product__images">

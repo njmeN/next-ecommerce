@@ -8,15 +8,17 @@ import ProductReviews from "./productReview";
 import WishlistToggleButton from "../wishlistToggleButton";
 
 type ProductPageProps = {
-  params: { id: string };
+  params: Promise<{ id: string }>;  
 };
 
 export default async function ProductDetailsPage({ params }: ProductPageProps) {
+  const { id } = await params;  
+
   let product;
 
   try {
     product = await prisma.product.findUnique({
-      where: { id: params.id },
+      where: { id },  
       include: { reviews: true },
     });
   } catch (error) {
@@ -24,7 +26,6 @@ export default async function ProductDetailsPage({ params }: ProductPageProps) {
     return (
       <div className="container section">
         <h1 className="error">Something went wrong while loading the product.</h1>
-        
       </div>
     );
   }
@@ -32,7 +33,6 @@ export default async function ProductDetailsPage({ params }: ProductPageProps) {
   if (!product) {
     return notFound(); 
   }
-
 
   const formattedReviews = product.reviews.map((r) => ({
     user: r.user,
@@ -81,7 +81,7 @@ export default async function ProductDetailsPage({ params }: ProductPageProps) {
                 productId={product.id}
                 max={product.availability}
               />
-                 <WishlistToggleButton
+              <WishlistToggleButton
                 product={{
                   id: product.id,
                   title: product.title,
@@ -97,8 +97,8 @@ export default async function ProductDetailsPage({ params }: ProductPageProps) {
             </ul>
 
             {product.availability === 0 && (
-  <p className="error">Out of stock</p>
-)}
+              <p className="error">Out of stock</p>
+            )}
 
             <div className="product__rating">
               <RatingStars rating={product.rating ?? 0} />
