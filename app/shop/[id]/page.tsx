@@ -1,6 +1,6 @@
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
+
 import { prisma } from "@/lib/prisma";
-import { notFound } from "next/navigation";
 import RatingStars from "@/components/products/RatingStars";
 import ProductGallery from "@/components/products/productGallery";
 import ProductCartControls from "./cartControl";
@@ -9,17 +9,17 @@ import ProductReviews from "./productReview";
 import WishlistToggleButton from "../wishlistToggleButton";
 
 type ProductPageProps = {
-  params: Promise<{ id: string }>;  
+  params: Promise<{ id: string }>;
 };
 
 export default async function ProductDetailsPage({ params }: ProductPageProps) {
-  const { id } = await params;  
+  const { id } = await params;
 
   let product;
 
   try {
     product = await prisma.product.findUnique({
-      where: { id },  
+      where: { id },
       include: { reviews: true },
     });
   } catch (error) {
@@ -32,7 +32,11 @@ export default async function ProductDetailsPage({ params }: ProductPageProps) {
   }
 
   if (!product) {
-    return notFound(); 
+    return (
+      <div className="container section">
+        <h1 className="error">Product not found.</h1>
+      </div>
+    );
   }
 
   const formattedReviews = product.reviews.map((r) => ({
@@ -40,7 +44,7 @@ export default async function ProductDetailsPage({ params }: ProductPageProps) {
     email: r.email,
     comment: r.comment,
     rating: r.rating,
-    createdAt: r.createdAt.toISOString(), 
+    createdAt: r.createdAt.toISOString(),
   }));
 
   return (
@@ -61,7 +65,6 @@ export default async function ProductDetailsPage({ params }: ProductPageProps) {
         <div className="details__container container grid">
           <ProductGallery images={product.images} title={product.title} />
 
-          {/* Product Info */}
           <div className="details__group">
             <h3 className="details__title">{product.title}</h3>
 
@@ -72,9 +75,15 @@ export default async function ProductDetailsPage({ params }: ProductPageProps) {
             <p className="short__description">{product.description}</p>
 
             <ul className="product__list">
-              <li className="list__item flex"><Crown size={20} strokeWidth={1} /> 1 year Warranty</li>
-              <li className="list__item flex"><RefreshCcw size={20} strokeWidth={1} /> 30 Days Return Policy</li>
-              <li className="list__item flex"><CreditCard size={20} strokeWidth={1} /> Cash on Delivery available</li>
+              <li className="list__item flex">
+                <Crown size={20} strokeWidth={1} /> 1 year Warranty
+              </li>
+              <li className="list__item flex">
+                <RefreshCcw size={20} strokeWidth={1} /> 30 Days Return Policy
+              </li>
+              <li className="list__item flex">
+                <CreditCard size={20} strokeWidth={1} /> Cash on Delivery available
+              </li>
             </ul>
 
             <div className="details__action">
@@ -93,8 +102,12 @@ export default async function ProductDetailsPage({ params }: ProductPageProps) {
             </div>
 
             <ul className="details__meta">
-              <li className="meta__list flex"><span>SKU:</span> {product.sku}</li>
-              <li className="meta__list flex"><span>Availability:</span> {product.availability} Items</li>
+              <li className="meta__list flex">
+                <span>SKU:</span> {product.sku}
+              </li>
+              <li className="meta__list flex">
+                <span>Availability:</span> {product.availability} Items
+              </li>
             </ul>
 
             {product.availability === 0 && (
