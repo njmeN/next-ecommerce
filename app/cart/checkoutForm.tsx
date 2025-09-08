@@ -30,8 +30,8 @@ export default function CartCheckoutForm({ defaultAddress }: Props) {
       const result = await placeOrder(address);
       if (result.ok) {
         toast.success(result.message);
-        setAddress(""); // reset address input
-        await refreshCart(); // refresh cart context only
+        setAddress("");
+        await refreshCart(); 
         router.push("/account/orders");
       } else {
         toast.error(result.message);

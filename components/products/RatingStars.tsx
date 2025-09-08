@@ -1,4 +1,3 @@
-// components/RatingStars.tsx
 import React from "react";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 

@@ -111,7 +111,14 @@ export default async function ShopPage({
                     >
                       <Eye size={16} strokeWidth={1} />
                     </Link>
-                    <WishlistToggleButton productId={product.id} />
+                    <WishlistToggleButton
+                      product={{
+                        id: product.id,
+                        title: product.title,
+                        price: product.price,
+                        images: product.images,
+                      }}
+                    />
                   </div>
                 </div>
 

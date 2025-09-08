@@ -16,10 +16,10 @@ export default function Countdown({ targetDate }: { targetDate: string }) {
   };
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-  const [mounted, setMounted] = useState(false); // برای جلوگیری از hydration error
+  const [mounted, setMounted] = useState(false); 
 
   useEffect(() => {
-    setMounted(true); // فقط بعد از mount شدن کلاینت
+    setMounted(true); 
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
     }, 1000);

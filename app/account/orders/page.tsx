@@ -1,4 +1,3 @@
-// app/account/orders/page.tsx
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { type Order, type User } from "@prisma/client";

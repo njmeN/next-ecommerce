@@ -1,4 +1,3 @@
-// components/layout/NewsletterSection.tsx
 'use client'
 
 import { Mail } from 'lucide-react'

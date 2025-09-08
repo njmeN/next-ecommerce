@@ -90,7 +90,7 @@ try {
     throw new Error("User not found");
   }
 } catch (error) {
-  
+  throw new Error("error fetching data");
 }
 
 
@@ -166,7 +166,7 @@ export async function removeProductAction(_prev: unknown, payload: { productId: 
   }
 }
 
-export async function addProductAction(_: any, data: AdminAddProductValues) {
+export async function addProductAction(_prev: unknown, data: AdminAddProductValues) {
   const session = await auth();
   const user = session?.user;
   if (!user || user.role !== "admin") throw new Error("Unauthorized");
@@ -183,8 +183,12 @@ export async function addProductAction(_: any, data: AdminAddProductValues) {
 }
 
 export async function deleteUser(formData: FormData) {
-  const id = formData.get('id') as string;
-  if (!id) throw new Error('User ID is required');
+  const session = await auth();
+  const user = session?.user;
+  if (!user || user.role !== "admin") throw new Error("Unauthorized");
+
+  const id = formData.get("id") as string;
+  if (!id) throw new Error("User ID is required");
 
   try {
     await prisma.user.delete({ where: { id } });
@@ -195,13 +199,16 @@ export async function deleteUser(formData: FormData) {
 }
 
 export async function updateUserRole(formData: FormData) {
+  const session = await auth();
+  const user = session?.user;
+  if (!user || user.role !== 'admin') throw new Error('Unauthorized');
   const values = pickForm<AdminUpdateRoleValues>(formData, ['id', 'role']);
   const parsed = AdminUpdateRoleSchema.safeParse(values);
   if (!parsed.success) throw new Error('Invalid role input');
 
   try {
     await prisma.user.update({ where: { id: parsed.data.id }, data: { role: parsed.data.role } });
-    revalidatePath('/account/users-list');
+    revalidatePath("/account/users-list");
   } catch (error) {
     console.error(error);
   }

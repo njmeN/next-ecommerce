@@ -38,8 +38,8 @@ export function ReviewForm({ productId }: Props) {
 
     if (result.ok) {
       toast.success(result.message);
-      reset();       // پاک‌سازی فرم
-      setRating(0);  // پاک‌سازی ستاره‌ها
+      reset();      
+      setRating(0);  
     } else {
       toast.error(result.message);
     }

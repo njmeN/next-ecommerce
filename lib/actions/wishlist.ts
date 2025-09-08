@@ -22,7 +22,7 @@ export async function addToWishlist(productId: string) {
     return { ok: true, message: "Added to wishlist." };
   } catch (error) {
     if ((error as any)?.code === "P2002") {
-      // Unique constraint violation
+  
       return { ok: false, message: "Already in wishlist." };
     }
 

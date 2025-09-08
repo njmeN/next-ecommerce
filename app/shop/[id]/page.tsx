@@ -30,16 +30,16 @@ export default async function ProductDetailsPage({ params }: ProductPageProps) {
   }
 
   if (!product) {
-    return notFound(); // Shows the 404 page
+    return notFound(); 
   }
 
-  // 🔧 Format reviews: createdAt → string
+
   const formattedReviews = product.reviews.map((r) => ({
     user: r.user,
     email: r.email,
     comment: r.comment,
     rating: r.rating,
-    createdAt: r.createdAt.toISOString(), // ✅ مهم: string باشه
+    createdAt: r.createdAt.toISOString(), 
   }));
 
   return (
@@ -81,7 +81,14 @@ export default async function ProductDetailsPage({ params }: ProductPageProps) {
                 productId={product.id}
                 max={product.availability}
               />
-              <WishlistToggleButton productId={product.id}/>
+                 <WishlistToggleButton
+                product={{
+                  id: product.id,
+                  title: product.title,
+                  price: product.price,
+                  images: product.images,
+                }}
+              />
             </div>
 
             <ul className="details__meta">

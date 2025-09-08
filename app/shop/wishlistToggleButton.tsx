@@ -4,13 +4,15 @@ import { useWishlist } from "@/lib/contexts/wishlist-context";
 import { addToWishlist, removeFromWishlist } from "@/lib/actions/wishlist";
 import { Heart } from "lucide-react";
 import { toast } from "sonner";
+import type { ProductStub } from "@/lib/types/wishlist";
 
 type Props = {
-  productId: string;
+  product: ProductStub;
 };
 
-export default function WishlistToggleButton({ productId }: Props) {
+export default function WishlistToggleButton({ product }: Props) {
   const { wishlist, setWishlist } = useWishlist();
+  const productId = product.id;
 
   const isInWishlist = wishlist.some((item) => item.productId === productId);
 
@@ -24,7 +26,10 @@ export default function WishlistToggleButton({ productId }: Props) {
     } else {
       const res = await addToWishlist(productId);
       if (res.ok) {
-        setWishlist((prev) => [...prev, { id: "", productId, userId: "", createdAt: new Date(), product: {} as any }]); // fake for count
+        setWishlist((prev) => [
+          ...prev,
+          { id: "", productId, userId: "", createdAt: new Date(), product },
+        ]);
         toast.success("Added to wishlist");
       }
     }

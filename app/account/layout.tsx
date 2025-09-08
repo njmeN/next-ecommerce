@@ -1,4 +1,4 @@
-// app/account/layout.tsx (server component)
+
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import type { ReactNode } from "react";

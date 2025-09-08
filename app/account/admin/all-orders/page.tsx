@@ -1,4 +1,4 @@
-// app/account/admin/orders/page.tsx
+
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
@@ -35,9 +35,7 @@ export default async function AdminOrdersPage() {
       <h3 className="tab__header">All Orders</h3>
 
       <div className="tab__body table__container">
-        {ordersError ? (
-          <p style={{ color: "red", textAlign: "center" }}>Failed to load orders.</p>
-        ) : (
+        
           <table className="placed__order-table">
             <thead>
               <tr>
@@ -69,7 +67,7 @@ export default async function AdminOrdersPage() {
               ))}
             </tbody>
           </table>
-        )}
+        
       </div>
     </div>
   );

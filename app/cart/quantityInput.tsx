@@ -16,14 +16,14 @@ export default function QuantityInput({ productId, currentQuantity, max }: Props
   const [showUpdate, setShowUpdate] = useState(false);
 
   useEffect(() => {
-    setQuantity(currentQuantity); // Sync when context updates
+    setQuantity(currentQuantity); 
     setShowUpdate(false);
   }, [currentQuantity]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value, 10) || 1;
 
-    // اگر از max استفاده شده، مقدار رو محدود کن
+    
     if (max && value > max) {
       toast.error(`Only ${max} in stock.`);
       setQuantity(max);

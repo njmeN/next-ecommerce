@@ -9,7 +9,7 @@ export function InlineRoleForm({ userId, currentRole, onRoleChange }: { userId: 
   const [changed, setChanged] = useState(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // Prevent page reload
+    event.preventDefault(); 
     const formData = new FormData(event.currentTarget);
 
     startTransition(async () => {

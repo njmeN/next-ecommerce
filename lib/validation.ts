@@ -1,6 +1,5 @@
 import z from "zod";
 
-// lib/validation.ts
 
 
 /** ---------- Helpers ---------- **/
@@ -112,7 +111,6 @@ export type AdminUpdatePasswordValues = z.infer<typeof AdminUpdatePasswordSchema
 /*--------review-------- */
 
 
-// lib/validation/review.ts
 export const reviewSchema = z.object({
   user: z.string().min(1, "Name is required"),
   email: z.email("Invalid email"),

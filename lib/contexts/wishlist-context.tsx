@@ -2,13 +2,9 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { getUserWishlist } from "@/lib/actions/wishlist";
-import { WishlistItemWithProduct } from "@/lib/types/wishlist"; 
+import { WishlistContextType, WishlistItemWithProduct } from "@/lib/types/wishlist"; 
 
-type WishlistContextType = {
-  wishlist: WishlistItemWithProduct[];
-  setWishlist: React.Dispatch<React.SetStateAction<WishlistItemWithProduct[]>>;
-  loading: boolean;
-};
+
 
 const WishlistContext = createContext<WishlistContextType | null>(null);
 

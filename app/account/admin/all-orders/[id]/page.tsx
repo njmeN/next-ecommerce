@@ -1,4 +1,4 @@
-// app/account/admin/orders/[id]/page.tsx
+
 import { prisma } from "@/lib/prisma";
 import noimg from "@/public/images/no-image-svgrepo-com.svg";
 import Image from "next/image";

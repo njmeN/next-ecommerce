@@ -43,7 +43,7 @@ export default function ChangePasswordPage() {
           setErrorMessage(null);
           reset();
 
-          // Update SessionContext and NextAuth session
+          
           if (user) {
             setUser({
               ...user
@@ -65,7 +65,7 @@ export default function ChangePasswordPage() {
     });
   }
 
-  // Clear messages after 3 seconds
+ 
   useEffect(() => {
     if (successMessage || errorMessage) {
       const timer = setTimeout(() => {

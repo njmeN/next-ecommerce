@@ -1,4 +1,3 @@
-// app/account/update-profile/page.tsx
 "use client";
 
 import { useSessionContext } from "@/lib/contexts/session-context";
@@ -12,10 +11,10 @@ import { useSession } from "next-auth/react";
 
 export default function UpdateProfilePage() {
   const { user, setUser } = useSessionContext();
-  const { update } = useSession(); // Get update method from useSession
+  const { update } = useSession(); 
   const [isPending, startTransition] = useTransition();
   const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState(""); // Added for error handling
+  const [errorMessage, setErrorMessage] = useState(""); 
   const router = useRouter();
 
   const {
@@ -36,15 +35,15 @@ export default function UpdateProfilePage() {
         const res = await updateUsernameAction(data);
 
         if (res.ok && res.message) {
-          // Update form state
+       
           reset({ username: res.message });
           setSuccessMessage("Saved successfully");
           setErrorMessage("");
 
-          // Update NextAuth session
+      
           await update({ username: res.message });
 
-          // Update SessionContext
+       
           if (user) {
             setUser({
               ...user,
@@ -52,7 +51,7 @@ export default function UpdateProfilePage() {
             });
           }
 
-          // Refresh page to ensure server components are updated
+    
           router.refresh();
         } else if (res.errors) {
           setErrorMessage("Failed to update username: " + JSON.stringify(res.errors));
@@ -65,7 +64,7 @@ export default function UpdateProfilePage() {
     });
   }
 
-  // Clear messages after 3 seconds
+
   useEffect(() => {
     if (successMessage || errorMessage) {
       const timer = setTimeout(() => {

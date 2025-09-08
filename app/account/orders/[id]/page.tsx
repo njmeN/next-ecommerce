@@ -27,7 +27,7 @@ export default async function OrderDetailPage({ params }: { params: { id: string
     title: string;
     price: number;
     quantity: number;
-    images?: string[]; // فقط اگر توی سفارش ذخیره کردی
+    images?: string[]; 
   }[] = order.products as any;
 
   return (

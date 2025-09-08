@@ -21,14 +21,14 @@ export default function LoginRegister() {
   const [loginError, setLoginError] = useState<string | null>(null)
   const [registerError, setRegisterError] = useState<string | null>(null)
 
-  // Redirect authenticated users to /account
+  
   useEffect(() => {
     if (status === 'authenticated' && session?.user) {
       router.replace('/account')
     }
   }, [status, session, router])
 
-  // Login form
+
   const {
     register: loginReg,
     handleSubmit: handleLoginSubmit,
@@ -40,7 +40,7 @@ export default function LoginRegister() {
     mode: 'onBlur',
   })
 
-  // Register form
+
   const {
     register: regReg,
     handleSubmit: handleRegisterSubmit,
@@ -95,12 +95,12 @@ export default function LoginRegister() {
     }
   }
 
-  // Show loading component during session check or form submission
+  
   if (status === 'loading' || isLoginSubmitting || isRegSubmitting) {
     return <Loading />
   }
 
-  // If authenticated, the useEffect will handle the redirect, so no need to render
+ 
   if (status === 'authenticated') {
     return null
   }

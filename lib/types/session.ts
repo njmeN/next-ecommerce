@@ -1,4 +1,4 @@
-// lib/types/session.ts
+
 
 export type SessionUser = {
     id: string;
@@ -7,5 +7,12 @@ export type SessionUser = {
     role: string;
     address?: string;
     isOAuth?: boolean;
+  };
+
+  
+ export type SessionContextType = {
+    user: SessionUser | null;
+    setUser: (user: SessionUser) => void;
+    status: "loading" | "authenticated" | "unauthenticated";
   };
   

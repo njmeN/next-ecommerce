@@ -1,4 +1,4 @@
-// app/account/page.tsx
+
 import { auth } from "@/auth";
 
 export default async function AccountDashboard() {

@@ -1,15 +1,10 @@
-// lib/contexts/session-context.tsx
+
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { SessionUser } from "../types/session";
+import { SessionContextType, SessionUser } from "../types/session";
 
-type SessionContextType = {
-  user: SessionUser | null;
-  setUser: (user: SessionUser) => void;
-  status: "loading" | "authenticated" | "unauthenticated";
-};
 
 const SessionContext = createContext<SessionContextType | undefined>(undefined);
 
@@ -18,7 +13,6 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<SessionUser | null>(null);
 
   useEffect(() => {
-    console.log("useSession().user in provider:", session?.user); 
     if (status === "authenticated" && session?.user) {
       setUser({
         id: session.user.id,
