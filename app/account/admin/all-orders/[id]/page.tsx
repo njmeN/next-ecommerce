@@ -3,10 +3,17 @@ import { prisma } from "@/lib/prisma";
 import noimg from "@/public/images/no-image-svgrepo-com.svg";
 import Image from "next/image";
 
+type OrderDetailPageProps = {
+  params: { id: string }
+}
 
-export default async function OrderDetailPage({ params }: { params: { id: string } }) {
+export default async function OrderDetailPage({ params }: OrderDetailPageProps) {
+
+
+  
   const order = await prisma.order.findUnique({ where: { id: params.id } });
   if (!order) return <p className="container error">failed to fetch orders</p>;
+  
 
   const products = Array.isArray(order.products) ? order.products : [];
 
@@ -49,3 +56,4 @@ export default async function OrderDetailPage({ params }: { params: { id: string
     </div>
   );
 }
+
