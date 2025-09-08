@@ -9,9 +9,10 @@ import Image from 'next/image'
 import { signOut} from "next-auth/react"
 import { useSessionContext } from '@/lib/contexts/session-context'
 import { useCart } from '@/lib/contexts/cart-context';
-import Loading from './loading'
+import { useWishlist } from "@/lib/contexts/wishlist-context";
 
 export default function Header() {
+  const { wishlist, loading: wishlistLoading  } = useWishlist();
   const [showMenu, setShowMenu] = useState(false)
   const toggleMenu = () => setShowMenu(!showMenu)
   const { user,  status } = useSessionContext();
@@ -87,10 +88,10 @@ export default function Header() {
         </div>
 
         <div className="header__user-actions">
-          <Link href="/wishlist" className="header__action-btn">
-            <Heart size={20} className='icon' />
-            <span className="count">0</span>
-          </Link>
+        <Link href="/wishlist" className="header__action-btn">
+  <Heart size={20} className="icon" />
+  <span className="count"> {wishlistLoading ? '...' : wishlist.length}</span>
+</Link>
 
           <Link href="/cart" className="header__action-btn">
             <ShoppingCart size={20} className='icon' />

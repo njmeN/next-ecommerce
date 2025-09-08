@@ -64,10 +64,20 @@ async function updateQuantity(productId: string, quantity: number) {
   }
 }
 
+async function refreshCart() {
+  try {
+    const items = await getCartItems();
+    setCart(items);
+  } catch (error) {
+    console.error("Failed to refresh cart:", error);
+    toast.error("Something went wrong while updating your cart.");
+  }
+}
+
 
 
   return (
-    <CartContext.Provider value={{ cart, setCart, addToCart, removeFromCart, updateQuantity, loading }}>
+    <CartContext.Provider value={{ cart, setCart, addToCart, removeFromCart, updateQuantity, loading, refreshCart }}>
       {children}
     </CartContext.Provider>
   );

@@ -1,11 +1,11 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
-import QuantityInput from "@/app/cart/quantityInput";
-import  AddToCartButton  from "@/app/shop/addToCartButton";
 import RatingStars from "@/components/products/RatingStars";
 import ProductGallery from "@/components/products/productGallery";
 import ProductCartControls from "./cartControl";
 import { CreditCard, Crown, RefreshCcw } from "lucide-react";
+import ProductReviews from "./productReview";
+import WishlistToggleButton from "../wishlistToggleButton";
 
 type ProductPageProps = {
   params: { id: string };
@@ -24,7 +24,7 @@ export default async function ProductDetailsPage({ params }: ProductPageProps) {
     return (
       <div className="container section">
         <h1 className="error">Something went wrong while loading the product.</h1>
-        <p>Please try again later.</p>
+        
       </div>
     );
   }
@@ -33,7 +33,14 @@ export default async function ProductDetailsPage({ params }: ProductPageProps) {
     return notFound(); // Shows the 404 page
   }
 
-
+  // 🔧 Format reviews: createdAt → string
+  const formattedReviews = product.reviews.map((r) => ({
+    user: r.user,
+    email: r.email,
+    comment: r.comment,
+    rating: r.rating,
+    createdAt: r.createdAt.toISOString(), // ✅ مهم: string باشه
+  }));
 
   return (
     <section>
@@ -41,9 +48,9 @@ export default async function ProductDetailsPage({ params }: ProductPageProps) {
       <section className="breadcrumb">
         <ul className="breadcrumb__list flex container">
           <li><a href="/" className="breadcrumb__link">Home</a></li>
-          <li><span className="breadcrumb__link">`{'>'}` </span></li>
+          <li><span className="breadcrumb__link">{`>`}</span></li>
           <li><a href="/shop" className="breadcrumb__link">Shop</a></li>
-          <li><span className="breadcrumb__link">`{'>'}` </span></li>
+          <li><span className="breadcrumb__link">{`>`}</span></li>
           <li><span className="breadcrumb__link">{product.title}</span></li>
         </ul>
       </section>
@@ -51,7 +58,7 @@ export default async function ProductDetailsPage({ params }: ProductPageProps) {
       {/* Product Details */}
       <section className="details section__lg">
         <div className="details__container container grid">
-        <ProductGallery images={product.images} title={product.title} />
+          <ProductGallery images={product.images} title={product.title} />
 
           {/* Product Info */}
           <div className="details__group">
@@ -70,11 +77,11 @@ export default async function ProductDetailsPage({ params }: ProductPageProps) {
             </ul>
 
             <div className="details__action">
-            <ProductCartControls
-  productId={product.id}
-  max={product.availability}
-/>
-
+              <ProductCartControls
+                productId={product.id}
+                max={product.availability}
+              />
+              <WishlistToggleButton productId={product.id}/>
             </div>
 
             <ul className="details__meta">
@@ -82,11 +89,23 @@ export default async function ProductDetailsPage({ params }: ProductPageProps) {
               <li className="meta__list flex"><span>Availability:</span> {product.availability} Items</li>
             </ul>
 
+            {product.availability === 0 && (
+  <p className="error">Out of stock</p>
+)}
+
             <div className="product__rating">
-              <RatingStars rating={product.rating ?? 5} />
+              <RatingStars rating={product.rating ?? 0} />
             </div>
           </div>
         </div>
+
+        {/* Reviews */}
+        <section className="details__reviews container section__lg">
+          <ProductReviews
+            productId={product.id}
+            reviews={formattedReviews}
+          />
+        </section>
       </section>
     </section>
   );

@@ -7,6 +7,7 @@ import { SessionProvider as NextAuthSessionProvider } from "next-auth/react";
 import { SessionProvider } from "@/lib/contexts/session-context";
 import { Toaster } from "sonner";
 import { CartProvider } from "@/lib/contexts/cart-context";
+import { WishlistProvider } from "@/lib/contexts/wishlist-context";
 
 
 
@@ -34,10 +35,12 @@ export default function RootLayout({
       <NextAuthSessionProvider>
           <SessionProvider>
           <CartProvider>
+          <WishlistProvider>
         <Header/>
         {children}
         <NewsletterSection/>
         <Footer/>
+        </WishlistProvider>
         </CartProvider>
         </SessionProvider>
         </NextAuthSessionProvider>

@@ -39,6 +39,7 @@ export default function AvailabilityInput({
     <div className="td_center ">
       <input
         type="number"
+        min={0}
         value={availability}
         onChange={handleChange}
         className="quantity"

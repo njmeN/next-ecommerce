@@ -78,7 +78,21 @@ export async function changePasswordAction(data: { currentPassword: string; newP
 
   try {
     const { currentPassword, newPassword } = parsed.data;
-    const user = await prisma.user.findUnique({ where: { id: userId }, select: { password: true } });
+    let user;
+
+try {
+  user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { password: true },
+  });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+} catch (error) {
+  
+}
+
 
     if (!user?.password) {
       const newHash = await bcrypt.hash(newPassword, 10);
@@ -114,6 +128,8 @@ export async function changeOrderStatusAction(formData: FormData) {
   try {
     await prisma.order.update({ where: { id: orderId }, data: { status: newStatus } });
     revalidatePath("/account/admin/orders");
+    return { ok: true }
+
   } catch (error) {
     console.error(error);
   }

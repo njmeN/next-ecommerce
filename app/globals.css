@@ -205,7 +205,7 @@ body{
 }
 
 .textarea{
-  height: 200px;
+  height: 207px;
   padding-block: 1rem;
   resize: none;
 }
@@ -693,11 +693,11 @@ body{
 }
 
 .deals__item:nth-child(1){
-  background-image: url(/public/images/deals-2.png  );
+  background-image: url(/images/deals-1.jpg );
 }
 
 .deals__item:nth-child(2){
-  background-image: url(/public/images/deals-2.png  );
+  background-image: url(/images/deals-2.png  );
 }
 
 

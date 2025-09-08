@@ -17,15 +17,15 @@ export default async function AdminProductsPage() {
   }
 
   let products: Product[] = [];
-  let productsError = false;
+
 
   try {
     products = await prisma.product.findMany({
       orderBy: { createdAt: "desc" },
     });
   } catch (err) {
-    console.error("Failed to fetch products:", err);
-    productsError = true;
+    return <p className="container error">Failed to fetch products:</p>
+
   }
 
   return (
@@ -58,6 +58,7 @@ export default async function AdminProductsPage() {
                       src={product.images?.[0] ?? noimg}
                       alt={product.title}
                       className="table__img"
+                      loading="lazy"
                     />
                   </td>
                   <td>{product.title}</td>

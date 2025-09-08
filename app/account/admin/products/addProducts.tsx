@@ -54,7 +54,7 @@ export default function AddProductForm() {
           <input type="number" step="0.01" {...register("price")} placeholder="Price" className="form__input" />
           {errors.price && <p className="error">{errors.price.message}</p>}
 
-          <input type="number" {...register("availability")} placeholder="Availability" className="form__input" />
+          <input type="number" min={0} {...register("availability")} placeholder="Availability" className="form__input" />
           {errors.availability && <p className="error">{errors.availability.message}</p>}
 
           <input {...register("description")} placeholder="Description" className="form__input" />

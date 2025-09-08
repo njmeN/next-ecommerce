@@ -108,3 +108,19 @@ export const AdminUpdatePasswordSchema = z.object({
 });
 export type AdminUpdatePasswordValues = z.infer<typeof AdminUpdatePasswordSchema>;
 
+
+/*--------review-------- */
+
+
+// lib/validation/review.ts
+export const reviewSchema = z.object({
+  user: z.string().min(1, "Name is required"),
+  email: z.email("Invalid email"),
+  comment: z.string().min(1, "Comment is required"),
+  rating: z
+    .number()
+    .min(1, { message: "Minimum rating is 1" })
+    .max(5, { message: "Maximum rating is 5" }),
+});
+
+export type ReviewData = z.infer<typeof reviewSchema>;

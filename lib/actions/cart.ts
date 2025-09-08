@@ -25,51 +25,61 @@ export async function getCartItems() {
 
 /*--------add to cart--------*/
 export async function addToCart(productId: string): Promise<{ ok: boolean; message: string }> {
-    const session = await auth();
-    const userId = session?.user?.id;
-    if (!userId) {
-      return { ok: false, message: "You must be logged in to add to cart" };
-     
-    }
-  
-    try {
-      const existing = await prisma.cartItem.findUnique({
-        where: {
-          userId_productId: {
-            userId,
-            productId,
-          },
-        },
-        include: { product: true },
-      });
-  
-      if (existing) {
-        if (existing.quantity >= existing.product.availability) {
-          return { ok: false, message: "Product is out of stock" };
-        }
-  
-        await prisma.cartItem.update({
-          where: { id: existing.id },
-          data: { quantity: { increment: 1 } },
-        });
-  
-        return { ok: true, message: "Cart updated" };
-      }
-  
-      await prisma.cartItem.create({
-        data: {
+  const session = await auth();
+  const userId = session?.user?.id;
+
+  if (!userId) {
+    return { ok: false, message: "You must be logged in to add to cart" };
+  }
+
+  try {
+    const existing = await prisma.cartItem.findUnique({
+      where: {
+        userId_productId: {
           userId,
           productId,
-          quantity: 1,
         },
+      },
+      include: { product: true },
+    });
+
+    if (existing) {
+      if (existing.quantity >= existing.product.availability) {
+        return { ok: false, message: "Product is out of stock" };
+      }
+
+      await prisma.cartItem.update({
+        where: { id: existing.id },
+        data: { quantity: { increment: 1 } },
       });
-  
-      return { ok: true, message: "Product added to cart" };
-    } catch (err) {
-      console.error("Add to cart error", err);
-      return { ok: false, message: "Something went wrong" };
+
+      return { ok: true, message: "Cart updated" };
     }
+
+    const product = await prisma.product.findUnique({
+      where: { id: productId },
+      select: { availability: true },
+    });
+
+    if (!product || product.availability < 1) {
+      return { ok: false, message: "Product is out of stock" };
+    }
+
+    await prisma.cartItem.create({
+      data: {
+        userId,
+        productId,
+        quantity: 1,
+      },
+    });
+
+    return { ok: true, message: "Product added to cart" };
+  } catch (err) {
+    console.error("Add to cart error", err);
+    return { ok: false, message: "Something went wrong" };
   }
+}
+
 
 
   export async function removeFromCart(productId: string) {

@@ -15,13 +15,12 @@ export default async function UsersListPage() {
   
 
   let users : User[] = [];
-  let dbError = false;
+
 
   try {
     users = await prisma.user.findMany({ orderBy: { createdAt: 'desc' } });
   } catch (err) {
-    console.error('DB connection error:', err);
-    dbError = true;
+    return <p className="container error">Failed to fetch users list</p>
   }
 
   const filteredUsers = users.filter((u) => u.id !== session.user.id);

@@ -4,21 +4,11 @@ import { useCart } from "@/lib/contexts/cart-context";
 import Image from "next/image";
 import Link from "next/link";
 import { Trash2 } from "lucide-react";
-import { useEffect, useState } from "react";
 import QuantityInput from "./quantityInput";
 import Loading from "@/components/common/loading";
 
 export function CartTable() {
   const { cart, removeFromCart, loading  } = useCart();
-  const [subtotal, setSubtotal] = useState(0);
-  const shipping = 10;
-
-  useEffect(() => {
-    const sub = cart.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
-    setSubtotal(sub);
-  }, [cart]);
-
-  const total = subtotal + shipping;
 
   return (
     <>
@@ -54,6 +44,7 @@ export function CartTable() {
                     width={60}
                     height={60}
                     className="table__img"
+                    loading="lazy"
                   />
                 </td>
                 <td>
@@ -82,31 +73,7 @@ export function CartTable() {
         </table>
       </div>
 
-      <div className="cart__group grid">
-        <div className="cart__total">
-          <h3 className="section__title">Cart Totals</h3>
-          <table className="cart__total-table">
-            <tbody>
-              <tr>
-                <td>Cart Subtotal</td>
-                <td>${subtotal.toFixed(2)}</td>
-              </tr>
-              <tr>
-                <td>Shipping</td>
-                <td>${shipping}</td>
-              </tr>
-              <tr>
-                <td>Total</td>
-                <td>${total.toFixed(2)}</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <button className="btn flex btn__md">
-            <i className="fi fi-rs-box-alt"></i>Proceed To Checkout
-          </button>
-        </div>
-      </div>
+      
     </>
   );
 }

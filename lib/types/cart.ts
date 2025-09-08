@@ -14,6 +14,7 @@ export type CartContextType = {
   removeFromCart: (productId: string) => Promise<void>;
   updateQuantity: (productId: string, quantity: number) => Promise<void>;
   loading:boolean;
+  refreshCart:()=>Promise<void>;
 };
 
 export type CartActionResult = {

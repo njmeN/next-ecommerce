@@ -1,4 +1,5 @@
 import { CartTable } from "./cartTable";
+import CartCheckoutSection from "./checkoutSection";
 
 export default function CartPage() {
   
@@ -15,6 +16,9 @@ export default function CartPage() {
       <section className="cart section__lg container">
         <CartTable />
       </section>
+      <div className="divider"></div>
+      <section className="cart section__lg container"><CartCheckoutSection /></section>
+      
     </main>
   );
 }

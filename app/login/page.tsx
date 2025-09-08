@@ -154,7 +154,7 @@ export default function LoginRegister() {
                 className="btn google-btn"
                 onClick={() => signIn('google')}
               >
-                <Image src={google} width={30} height={30} alt="Google icon" />
+                <Image src={google} width={30} height={30} alt="Google icon" loading='lazy'/>
                 Login with Google
               </button>
             </div>
@@ -231,7 +231,7 @@ export default function LoginRegister() {
                 className="btn google-btn"
                 onClick={() => signIn('google')}
               >
-                <Image src={google} width={30} height={30} alt="Google icon" />
+                <Image src={google} width={30} height={30} alt="Google icon" loading='lazy'/>
                 Sign up with Google
               </button>
             </div>
