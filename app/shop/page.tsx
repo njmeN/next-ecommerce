@@ -60,7 +60,18 @@ export default async function ShopPage({
     ]);
   } catch (error) {
     console.error("Failed to fetch products:", error);
-    return <p className="container error">Failed to load products.</p>;
+    return (
+    <main className="main"> <section className="breadcrumb">
+    <ul className="breadcrumb__list flex container">
+      <li>
+        <Link href="/" className="breadcrumb__link">Home</Link>
+      </li>
+      <li><span className="breadcrumb__link">{">"}</span></li>
+      <li><span className="breadcrumb__link">Shop</span></li>
+    </ul>
+  </section>
+  <p className="container error">Failed to load products.</p></main>
+    )
   }
 
   const totalPages = Math.ceil(totalCount / PRODUCTS_PER_PAGE);

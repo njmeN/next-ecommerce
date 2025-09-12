@@ -121,6 +121,7 @@ table{
   color: var(--error-color);
   font-size: var(--small-font-size);
   margin-bottom: 1rem;
+  margin-top:1rem;
   
   
 }
@@ -342,6 +343,10 @@ body{
 .active-link,
 .nav__link:hover{
   color: var(--first-color);
+}
+
+.md-user{
+  display: none;
 }
 
 /*=============== HOME ===============*/
@@ -924,6 +929,7 @@ body{
 .breadcrumb{
   background-color: var(--container-color);
   padding-block: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .breadcrumb__list{
@@ -1198,8 +1204,9 @@ body{
   margin-bottom: 2rem;
 }
 /*=============== CART ===============*/
-.table__cotainer{
+.table__container{
   overflow-x: auto;
+
 }
 
 .table{
@@ -1216,32 +1223,32 @@ body{
 
 .table tr th:nth-child(1),
 .table tr td:nth-child(1){
-  width: 216px;
+  width: 170px;
 }
 
 .table tr th:nth-child(2),
 .table tr td:nth-child(2){
-  width: 400px;
+  width: 320px;
 }
 
 .table tr th:nth-child(3),
 .table tr td:nth-child(3){
-  width: 108px
+  width: 86px
 }
 
 .table tr th:nth-child(4),
 .table tr td:nth-child(4){
-  width: 220px;
+  width: 176px;
 }
 
 .table tr th:nth-child(5),
 .table tr td:nth-child(5){
-  width: 200px;
+  width: 160px;
 }
 
 .table tr th:nth-child(6),
 .table tr td:nth-child(6){
-  width: 152px;
+  width: 121px;
 }
 
 .table__img{
@@ -1703,6 +1710,14 @@ body{
     border-color: var(--first-color);
   }
 
+  .lg-user{
+    display: none;
+  }
+
+  .md-user{
+    display: block;
+  }
+
   .nav__menu-top,
   .nav__toggle{
     display: flex ;
@@ -1798,8 +1813,9 @@ body{
   .details__action{
     margin-bottom: 2.75rem;
   }
-
   
+  
+
   }
 
 
@@ -1807,6 +1823,7 @@ body{
 @media screen and (max-width: 992px) {
   .nav{
     top: 0;
+    padding-block: 0;
   }
 .container{
   max-width: 740px;
@@ -1901,6 +1918,7 @@ body{
 
 
 @media screen and (max-width: 768px) {
+
   .container{
     max-width: 540px;
   }

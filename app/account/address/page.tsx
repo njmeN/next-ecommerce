@@ -3,6 +3,7 @@
 import { useActionState, useTransition } from "react";
 import { updateAddressAction } from "@/lib/actions/account";
 import { useSessionContext } from "@/lib/contexts/session-context";
+import Link from "next/link";
 
 export default function AddressPage() {
   const [state, formAction] = useActionState(updateAddressAction, null);
@@ -10,7 +11,9 @@ export default function AddressPage() {
   const [isPending, startTransition] = useTransition();
 
   return (
-    <div className="tab__content active-tab">
+    <section>
+      
+      <div className="tab__content active-tab">
       <h3 className="tab__header">Shipping Address</h3>
       <div className="tab__body">
         <form  action={(formData) => {
@@ -30,5 +33,7 @@ export default function AddressPage() {
         </form>
       </div>
     </div>
+    </section>
+    
   );
 }

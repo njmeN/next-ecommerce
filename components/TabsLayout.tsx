@@ -18,6 +18,7 @@ import {
 import { signOut } from "next-auth/react";
 import { useSessionContext } from "@/lib/contexts/session-context";
 
+
 export default function TabsLayout({
   children,
   isAdmin,
@@ -27,9 +28,36 @@ export default function TabsLayout({
 }) {
   const pathname = usePathname();
   const { user } = useSessionContext();
+  const segments = pathname.split("/").filter(Boolean);
+
 
   return (
-    <section className="accounts section__lg">
+    <section className="accounts ">
+       <section className="breadcrumb">
+      <ul className="breadcrumb__list flex container">
+        <li>
+          <Link href="/" className="breadcrumb__link">
+            Home
+          </Link>
+        </li>
+
+        {segments.map((segment, index) => {
+          const href = "/" + segments.slice(0, index + 1).join("/");
+          const isLast = index === segments.length - 1;
+
+          return (
+            <li key={href} className="breadcrumb__link">
+              <span>{" > "} </span>
+              {isLast ? (
+                <span>{segment}</span>
+              ) : (
+                <Link href={href}>{segment}</Link>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </section>
       <div className="accounts__container container grid">
         <aside className="account__tabs">
           <Link

@@ -26,11 +26,11 @@ export default function Header() {
             <span>Our location</span>
           </div>
           <p className="header__alert-news">Super Value Deals - Save more with coupons</p>
-          {status=="loading"?  <div className="header__top-action">loading ...</div> :
+          <div className='lg-user'>{status=="loading"?  <div className="header__top-action">loading ...</div> :
           user ? (
             <div className="header__top-action">
               <Link href="/account">{user.username}</Link> {/* Link to account page */}
-              {" - "}
+              {" / "}
               <button
       onClick={() => signOut({ callbackUrl: '/' })}
       className="logout-btn"
@@ -42,7 +42,8 @@ export default function Header() {
             <Link href="/login" className="header__top-action">
               Login / Sign Up
             </Link>
-          )}
+          )}</div>
+          
         </div>
       </div>
 
@@ -86,7 +87,25 @@ export default function Header() {
 
         </div>
 
-        <div className="header__user-actions">
+        <div className="header__user-actions ">
+          <div className='md-user'>  {status=="loading"?  <div className="header__top-action">loading ...</div> :
+          user ? (
+            <div className="header__top-action">
+              <Link href="/account">{user.username}</Link> {/* Link to account page */}
+              {" /"}
+              <button
+      onClick={() => signOut({ callbackUrl: '/' })}
+      className="logout-btn"
+    >
+      Sign Out
+    </button>
+            </div>
+          ) : (
+            <Link href="/login" className="header__top-action">
+              Login / Sign Up
+            </Link>
+          )}</div>
+      
         <Link href="/wishlist" className="header__action-btn">
   <Heart size={20} className="icon" />
   <span className="count"> {wishlistLoading ? '...' : wishlist.length}</span>

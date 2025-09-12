@@ -14,6 +14,8 @@ import google from '@/public/images/google.png'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import Loading from '@/components/common/loading'
+import Link from 'next/link'
+import { toast } from 'sonner'
 
 export default function LoginRegister() {
   const router = useRouter()
@@ -24,7 +26,10 @@ export default function LoginRegister() {
   
   useEffect(() => {
     if (status === 'authenticated' && session?.user) {
+      toast.error("you are already logged in, Pleae sign out first")
       router.replace('/account')
+      
+      
     }
   }, [status, session, router])
 
@@ -107,6 +112,15 @@ export default function LoginRegister() {
 
   return (
     <section className="login-register section__lg">
+       <section className="breadcrumb">
+        <ul className="breadcrumb__list flex container">
+          <li><Link href="/" className="breadcrumb__link">Home</Link></li>
+          <li><span className="breadcrumb__link">{" > "}</span></li>
+          <li><span className="breadcrumb__link"><Link href="/account">Account</Link></span></li>
+          <li><span className="breadcrumb__link">{" > "}</span></li>
+          <li><span className="breadcrumb__link">Address</span></li>
+        </ul>
+      </section>
       <div className="login-register__container container grid">
         {/* Login */}
         <div className="login">
