@@ -6,7 +6,7 @@ import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import type { User as PrismaUser } from "@prisma/client";
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const { handlers, signIn, signOut: serverSignOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
     Google,

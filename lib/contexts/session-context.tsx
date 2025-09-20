@@ -24,7 +24,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       
       setUser(null);
     }
-  }, [session?.user, status]);
+  }, [session, status]);
 
   return (
     <SessionContext.Provider value={{ user, setUser, status }}>
