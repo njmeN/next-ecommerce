@@ -137,3 +137,10 @@ model WishlistItem {
 
   @@unique([userId, productId]) 
 }
+
+model Newsletter {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+

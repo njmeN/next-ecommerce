@@ -42,6 +42,12 @@ export const RegisterSchema = z
   });
 export type RegisterValues = z.infer<typeof RegisterSchema>;
 
+export const RegisterApiSchema = z.object({
+  username: z.string().min(3, "Username must be at least 3 characters"),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
 /** ---------- Account Tabs ---------- **/
 // Update Profile (username)
 export const UpdateUsernameSchema = z.object({

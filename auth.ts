@@ -15,7 +15,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
-        username: { label: "Username", type: "text" }, 
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
@@ -24,27 +23,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         const email = String(credentials.email);
         const password = String(credentials.password);
-        const username = credentials.username ? String(credentials.username) : undefined;
 
-        if (username) {
-          const existingUser = await prisma.user.findUnique({ where: { email } });
-          if (existingUser) {
-            throw new Error("User with this email already exists");
-          }
-
-          const hashedPassword = await bcrypt.hash(password, 10);
-          const newUser = await prisma.user.create({
-            data: {
-              email,
-              username,
-              password: hashedPassword,
-            },
-          });
-
-          return newUser as any; 
-        }
-
-        // Login
         const user = await prisma.user.findUnique({ where: { email } });
         if (!user || !user.password) {
           throw new Error("Invalid email or password");
@@ -59,14 +38,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
-
   session: {
     strategy: "jwt",
   },
-
   callbacks: {
     async jwt({ token, user, trigger, session }) {
- 
       if (user) {
         const u = user as PrismaUser;
         token.id = u.id;
@@ -83,7 +59,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       return token;
     },
-
     async session({ session, token }) {
       if (token && session.user) {
         session.user.id = token.id as string;
@@ -97,5 +72,4 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
   trustedHosts: true,
-  
 });

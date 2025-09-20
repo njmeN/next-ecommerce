@@ -5,17 +5,32 @@ import { useState } from 'react'
 import { Search, Heart, ShoppingCart, Menu, X } from 'lucide-react'
 import logo from '@/public/images/logo.svg'
 import Image from 'next/image'
-import { signOut} from "next-auth/react"
+import { signOut, useSession} from "next-auth/react"
 import { useSessionContext } from '@/lib/contexts/session-context'
 import { useCart } from '@/lib/contexts/cart-context';
 import { useWishlist } from "@/lib/contexts/wishlist-context";
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 export default function Header() {
   const { wishlist, loading: wishlistLoading  } = useWishlist();
+  const { data: session } = useSession();
   const [showMenu, setShowMenu] = useState(false)
   const toggleMenu = () => setShowMenu(!showMenu)
   const { user,  status } = useSessionContext();
   const { cart, loading } = useCart();
+  const router = useRouter();
+  const navLinks = ['/', '/shop', '/account', '/login'];
+
+  const handleLoginClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    if (path === '/login' && status === 'authenticated' && session?.user) {
+      e.preventDefault();
+      toast.error("You are already logged in, please sign out first");
+      router.push('/account'); 
+    }
+  };
+
+
 
   return (
     <header className="header">
@@ -63,14 +78,14 @@ export default function Header() {
           </div>
 
           <ul className="nav__list">
-            {['/', '/shop', '/account', '/login'].map((path, index) => (
-              <li key={index} className="nav__item">
-                <Link href={path} className="nav__link">
-                  {path === '/' ? 'Home' : path.replace('/', '').replace('-', ' ')}
-                </Link>
-              </li>
-            ))}
-          </ul>
+      {navLinks.map((path, index) => (
+        <li key={index} className="nav__item">
+          <Link href={path} className="nav__link" onClick={(e) => handleLoginClick(e, path)}>
+            {path === '/' ? 'Home' : path.replace('/', '').replace('-', ' ')}
+          </Link>
+        </li>
+      ))}
+    </ul>
 
           <form action="/shop" method="GET" className="header__search">
   <input

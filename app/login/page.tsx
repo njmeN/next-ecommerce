@@ -13,9 +13,9 @@ import {
 import google from '@/public/images/google.png'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
-import Loading from '@/components/common/loading'
+
 import Link from 'next/link'
-import { toast } from 'sonner'
+
 
 export default function LoginRegister() {
   const router = useRouter()
@@ -26,10 +26,7 @@ export default function LoginRegister() {
   
   useEffect(() => {
     if (status === 'authenticated' && session?.user) {
-      toast.error("you are already logged in, Pleae sign out first")
-      router.replace('/account')
-      
-      
+      router.replace('/account')    
     }
   }, [status, session, router])
 
@@ -58,52 +55,79 @@ export default function LoginRegister() {
   })
 
   async function onLogin(values: LoginValues) {
-    setLoginError(null)
+    setLoginError(null);
     try {
       const result = await signIn('credentials', {
         email: values.email,
         password: values.password,
         redirect: false,
-      })
-
+      });
+  
       if (result?.error) {
-        setLoginError(result.error)
-        return
+    
+        const errorMessage =
+          result.error === 'CredentialsSignin' ||
+          result.error.includes('Configuration')
+            ? 'There is a problem with your email or password'
+            : 'An unexpected error occurred during login';
+        setLoginError(errorMessage);
+        return;
       }
-
-      resetLogin()
-      router.push('/account')
-    } catch (error) {
-      setLoginError('An unexpected error occurred')
+  
+      resetLogin();
+      router.push('/account');
+    } catch (error: any) {
+      setLoginError('There is a problem with your email or password');
+      console.error('Login error:', error);
     }
   }
-
   async function onRegister(values: RegisterValues) {
-    setRegisterError(null)
+    setRegisterError(null);
     try {
-      const result = await signIn('credentials', {
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: values.username,
+          email: values.email,
+          password: values.password,
+        }),
+      });
+  
+      // Read the response body once as text for logging
+      const responseText = await response.text();
+      console.log('Response status:', response.status);
+      console.log('Response body:', responseText);
+  
+      // Parse the text as JSON for further processing
+      const data = JSON.parse(responseText);
+  
+      if (!response.ok) {
+        setRegisterError(data.error || 'An error occurred during registration');
+        return;
+      }
+  
+      const signInResult = await signIn('credentials', {
         email: values.email,
         password: values.password,
-        username: values.username,
         redirect: false,
-      })
-
-      if (result?.error) {
-        setRegisterError(result.error)
-        return
+      });
+  
+      if (signInResult?.error) {
+        setRegisterError('Registration successful, but login failed. Please try logging in.');
+        return;
       }
-
-      resetRegister()
-      router.push('/account')
-    } catch (error) {
-      setRegisterError('An unexpected error occurred')
+  
+      resetRegister();
+      router.push('/account');
+    } catch (error: any) {
+      setRegisterError(error.message || 'An unexpected error occurred');
+      console.error('Registration error:', error);
     }
   }
 
   
-  if (status === 'loading' || isLoginSubmitting || isRegSubmitting) {
-    return <Loading />
-  }
+  
 
  
   if (status === 'authenticated') {
@@ -111,7 +135,7 @@ export default function LoginRegister() {
   }
 
   return (
-    <section className="login-register section__lg">
+    <section className="login-register">
        <section className="breadcrumb">
         <ul className="breadcrumb__list flex container">
           <li><Link href="/" className="breadcrumb__link">Home</Link></li>

@@ -1,10 +1,8 @@
-
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { SessionContextType, SessionUser } from "../types/session";
-
 
 const SessionContext = createContext<SessionContextType | undefined>(undefined);
 
@@ -22,11 +20,14 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
         address: session.user.address,
         isOAuth: session.user.isOAuth,
       });
+    } else if (status === "unauthenticated") {
+      
+      setUser(null);
     }
-  }, [session?.user, status]); 
+  }, [session?.user, status]);
 
   return (
-    <SessionContext.Provider value={{ user, setUser , status}}>
+    <SessionContext.Provider value={{ user, setUser, status }}>
       {children}
     </SessionContext.Provider>
   );
