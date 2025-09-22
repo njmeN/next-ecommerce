@@ -140,9 +140,7 @@ export default function LoginRegister() {
         <ul className="breadcrumb__list flex container">
           <li><Link href="/" className="breadcrumb__link">Home</Link></li>
           <li><span className="breadcrumb__link">{" > "}</span></li>
-          <li><span className="breadcrumb__link"><Link href="/account">Account</Link></span></li>
-          <li><span className="breadcrumb__link">{" > "}</span></li>
-          <li><span className="breadcrumb__link">Address</span></li>
+          <li><span className="breadcrumb__link"><Link href="/account">Login-register</Link></span></li>
         </ul>
       </section>
       <div className="login-register__container container grid">

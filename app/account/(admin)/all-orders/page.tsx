@@ -34,9 +34,8 @@ export default async function AdminOrdersPage() {
     <div className="tab__content active-tab">
       <h3 className="tab__header">All Orders</h3>
 
-      <div className="tab__body table__container">
-        
-          <table className="placed__order-table">
+      <div className="tab__body">
+      <div className="table__container"><table className="placed__order-table">
             <thead>
               <tr>
                 <th>Order ID</th>
@@ -59,7 +58,7 @@ export default async function AdminOrdersPage() {
                   <td>{new Date(order.date).toLocaleDateString()}</td>
                   <td>${order.totalAmount.toFixed(2)}</td>
                   <td>
-                  <Link href={`/account/admin/all-orders/${order.id}`} className="view__order">
+                  <Link href={`/account/all-orders/${order.id}`} className="view__order">
     View
   </Link>
                   </td>
@@ -67,7 +66,9 @@ export default async function AdminOrdersPage() {
               ))}
             </tbody>
           </table>
+        </div>
         
+          
       </div>
     </div>
   );

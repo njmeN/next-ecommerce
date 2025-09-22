@@ -72,4 +72,6 @@ export const { handlers, signIn, signOut: serverSignOut, auth } = NextAuth({
     },
   },
   trustedHosts: true,
+  
+  
 });

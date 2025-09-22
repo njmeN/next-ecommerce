@@ -5,7 +5,7 @@ import AddProductForm from "./addProducts";
 import noimg from "@/public/images/no-image-svgrepo-com.svg";
 import { type Product } from "@prisma/client";
 
-import AvailabilityInput from "@/app/account/admin/products/AvailabilityInput";
+import AvailabilityInput from "@/app/account/(admin)/products/AvailabilityInput";
 import RemoveProductButton from "./RemoveProductButton";
 
 export default async function AdminProductsPage() {

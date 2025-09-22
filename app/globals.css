@@ -102,6 +102,7 @@ p{
 
 img{
   max-width: 100%;
+  object-fit: contain;
 }
 
 button,
@@ -516,13 +517,24 @@ body{
   display: block;
   overflow: hidden;
   border-radius: 1.25rem;
+  padding-top: 100%;
 }
 
-.product__item:hover .product__img{
-  transform: scale(1.1);
+.product__item:hover .product__img.default {
+  opacity: 0;
+}
+
+.product__item:hover .product__img.hover {
+  opacity: 1;
 }
 
 .product__img{
+  position: absolute;
+  left:0;
+  top:0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   vertical-align: middle;
   transition: all 1.5s var(--transition);
   
@@ -702,7 +714,7 @@ body{
 }
 
 .deals__item:nth-child(2){
-  background-image: url(/images/deals-2.png  );
+  background-image: url(/images/deals-1.jpg  );
 }
 
 
@@ -1205,7 +1217,9 @@ body{
 }
 /*=============== CART ===============*/
 .table__container{
-  overflow-x: auto;
+  width:100%;
+  overflow-x: auto;         
+  -webkit-overflow-scrolling: touch;
 
 }
 
@@ -1507,6 +1521,10 @@ body{
   border: 1px solid var(--border-color);
 }
 
+.tabs__content{
+  padding-inline:0 !important;
+}
+
 .tab__header{
   background-color: var(--container-color);
   border-bottom: 1px solid var(--border-color);
@@ -1517,17 +1535,29 @@ body{
 .tab__body{
   padding: 1rem;
 }
+.placed__order-table {
+  min-width: 900px; 
+  width: max-content;
+  border-collapse: collapse;
+}
 
 .placed__order-table tr th{
+
   color: var(--title-color);
   text-align: left ;
 }
 
 .placed__order-table tr th,
 .placed__order-table tr td{
+ 
   border: 1px solid var(--border-color);
   padding: 0.5rem;
   font-size: var(--small-font-size);
+}
+
+.placed__order-table th,
+.placed__order-table td {
+  width: auto; 
 }
 
 .view__order,
@@ -1821,6 +1851,7 @@ body{
 
 /* For medium devices */
 @media screen and (max-width: 992px) {
+  
   .nav{
     top: 0;
     padding-block: 0;
@@ -1828,6 +1859,8 @@ body{
 .container{
   max-width: 740px;
 } 
+
+
 
 .home__container,
 .deals__container,
@@ -1937,7 +1970,11 @@ body{
 }
 
 /* For small devices */
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 580px) {
+  .tabs__content{
+    max-width:350px !important;
+  }
+  
 
   .category__item{
     padding-bottom: 1rem;
@@ -1963,16 +2000,15 @@ body{
     line-height: 30px;
   }
 
-  .placed__order-table th,
-  .order__table tr th{
-    display: none;
+  .placed__order-table th {
+    display: none; 
   }
-
-  .placed__order-table,
-  .order__table tr td,
-  .info__table tr th,
-  .info__table tr td{
-    display: block;
+  .placed__order-table td {
+    display: table-cell;
+    width: auto; 
+  }
+  .placed__order-table {
+    min-width:100%ک
   }
 
   .form__group{
@@ -2010,6 +2046,10 @@ body{
 }
 
 @media screen and (max-width: 350px) {
+  .tabs__content{
+    max-width:280px !important;
+  }
+
   .signUp__google{
   flex-direction:column;
 }
@@ -2029,6 +2069,7 @@ body{
       display: block;
       width: 100%;
     }
+    
 
                                                                  
 

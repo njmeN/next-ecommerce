@@ -127,7 +127,7 @@ export async function changeOrderStatusAction(formData: FormData) {
 
   try {
     await prisma.order.update({ where: { id: orderId }, data: { status: newStatus } });
-    revalidatePath("/account/admin/orders");
+    revalidatePath("/account/orders");
     return { ok: true }
 
   } catch (error) {
@@ -145,7 +145,7 @@ export async function updateProductAvailabilityAction(_prev: unknown, payload: {
 
   try {
     await prisma.product.update({ where: { id: productId }, data: { availability } });
-    revalidatePath("/account/admin/products");
+    revalidatePath("/account/products");
   } catch (error) {
     console.error(error);
   }
@@ -160,7 +160,7 @@ export async function removeProductAction(_prev: unknown, payload: { productId: 
 
   try {
     await prisma.product.delete({ where: { id: productId } });
-    revalidatePath('/account/admin/products');
+    revalidatePath('/account/products');
   } catch (error) {
     console.error(error);
   }
@@ -176,7 +176,7 @@ export async function addProductAction(_prev: unknown, data: AdminAddProductValu
 
   try {
     await prisma.product.create({ data: parsed.data });
-    revalidatePath("/account/admin/products");
+    revalidatePath("/account/products");
   } catch (error) {
     console.error(error);
   }

@@ -110,27 +110,27 @@ export default function TabsLayout({
           {isAdmin && (
             <>
               <Link
-                href="/account/admin/all-orders"
+                href="/account/all-orders"
                 className={clsx("account__tab", {
-                  "active-tab": pathname === "/account/admin/all-orders",
+                  "active-tab": pathname === "/account/all-orders",
                 })}
               >
                 <PackageSearch /> All Orders
               </Link>
 
               <Link
-                href="/account/admin/products"
+                href="/account/products"
                 className={clsx("account__tab", {
-                  "active-tab": pathname === "/account/admin/products",
+                  "active-tab": pathname === "/account/products",
                 })}
               >
                 <Wrench /> Edit Products
               </Link>
 
               <Link
-                href="/account/admin/users-list"
+                href="/account/users-list"
                 className={clsx("account__tab", {
-                  "active-tab": pathname === "/account/admin/users-list",
+                  "active-tab": pathname === "/account/users-list",
                 })}
               >
                 <Users /> Users & Admins
@@ -148,7 +148,7 @@ export default function TabsLayout({
           </button>
         </aside>
 
-        <div className="tabs__content">{children}</div>
+        <div className="tabs__content container">{children}</div>
       </div>
     </section>
   );

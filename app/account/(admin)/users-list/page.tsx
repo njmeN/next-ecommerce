@@ -26,10 +26,11 @@ export default async function UsersListPage() {
   const filteredUsers = users.filter((u) => u.id !== session.user.id);
 
   return (
-    <div className="tab__content active-tab">
+    <div className="tabs__content active-tab">
       <h3 className="tab__header">Users & Admins List</h3>
-
-      <table className="placed__order-table">
+      <div className="tab__body">
+        <div className="table__container">
+             <table className="placed__order-table">
         <thead>
           <tr>
             <th>Email</th>
@@ -43,6 +44,10 @@ export default async function UsersListPage() {
   ))}
 </tbody>
       </table>
+        </div>
+      </div>
+
+   
     </div>
   );
 }

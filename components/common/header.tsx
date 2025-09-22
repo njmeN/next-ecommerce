@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import {useEffect, useState } from 'react'
 import { Search, Heart, ShoppingCart, Menu, X } from 'lucide-react'
 import logo from '@/public/images/logo.svg'
 import Image from 'next/image'
@@ -9,7 +9,7 @@ import { signOut, useSession} from "next-auth/react"
 import { useSessionContext } from '@/lib/contexts/session-context'
 import { useCart } from '@/lib/contexts/cart-context';
 import { useWishlist } from "@/lib/contexts/wishlist-context";
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
 export default function Header() {
@@ -21,14 +21,19 @@ export default function Header() {
   const { cart, loading } = useCart();
   const router = useRouter();
   const navLinks = ['/', '/shop', '/account', '/login'];
-
+  const pathname = usePathname();
   const handleLoginClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    
     if (path === '/login' && status === 'authenticated' && session?.user) {
       e.preventDefault();
       toast.error("You are already logged in, please sign out first");
       router.push('/account'); 
     }
   };
+  useEffect(() => {
+   
+    if (showMenu) setShowMenu(false);
+  }, [pathname]);
 
 
 
@@ -47,7 +52,7 @@ export default function Header() {
               <Link href="/account">{user.username}</Link> {/* Link to account page */}
               {" / "}
               <button
-      onClick={() => signOut({ callbackUrl: '/' })}
+      onClick={() => signOut({redirect: true, callbackUrl: '/' })}
       className="logout-btn"
     >
       Sign Out
@@ -80,7 +85,7 @@ export default function Header() {
           <ul className="nav__list">
       {navLinks.map((path, index) => (
         <li key={index} className="nav__item">
-          <Link href={path} className="nav__link" onClick={(e) => handleLoginClick(e, path)}>
+          <Link href={path} className="nav__link" onClick={(e) => handleLoginClick(e, path)   }>
             {path === '/' ? 'Home' : path.replace('/', '').replace('-', ' ')}
           </Link>
         </li>
@@ -109,7 +114,7 @@ export default function Header() {
               <Link href="/account">{user.username}</Link> {/* Link to account page */}
               {" /"}
               <button
-      onClick={() => signOut({ callbackUrl: '/' })}
+      onClick={() => signOut({ redirect: true,callbackUrl: '/' })}
       className="logout-btn"
     >
       Sign Out
