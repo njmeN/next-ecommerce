@@ -45,6 +45,7 @@ export function CartTable() {
                     height={60}
                     className="table__img"
                     loading="lazy"
+                    unoptimized
                   />
                 </td>
                 <td>

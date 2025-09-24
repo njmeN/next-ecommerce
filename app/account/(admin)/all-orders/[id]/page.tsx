@@ -40,6 +40,7 @@ export default async function AdminOrderDetailPage({
                     height={60}
                     className="table__img"
                     loading="lazy"
+                    unoptimized
                   />
                 </td>
                 <td>{p.title}</td>

@@ -14,6 +14,8 @@ export default function ProductGallery({ images, title }: { images: string[]; ti
         width={500}
         height={500}
         className="details__img"
+        loading='lazy'
+        unoptimized
       />
 
      
@@ -28,6 +30,8 @@ export default function ProductGallery({ images, title }: { images: string[]; ti
             className={`details__small-img ${selected === img ? 'active' : ''}`}
             onClick={() => setSelected(img)}
             style={{ cursor: 'pointer' }}
+            loading='lazy'
+            unoptimized
           />
         ))}
       </div>

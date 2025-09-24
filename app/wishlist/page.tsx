@@ -75,6 +75,8 @@ export default function WishlistPage() {
                         width={70}
                         height={70}
                         className="table__img"
+                        loading="lazy"
+                        unoptimized
                       />
                     </td>
                     <td>

@@ -64,6 +64,7 @@ export default async function UserOrderDetailPage({ params }: Props) {
                     height={60}
                     className="table__img"
                     loading="lazy"
+                    unoptimized
                   />
                 </td>
                 <td>{item.title}</td>
