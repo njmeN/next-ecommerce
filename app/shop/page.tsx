@@ -113,6 +113,7 @@ export default async function ShopPage({
                         width={300}
                         height={300}
                         className={`product__img ${index === 0 ? "default" : "hover"}`}
+                        unoptimized
                       />
                     ))}
                   </div>
