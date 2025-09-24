@@ -73,7 +73,7 @@ export async function placeOrder(address: string): Promise<{ ok: boolean; messag
    
     revalidatePath("/cart");
     revalidatePath("/account/orders");
-    redirect("/account/orders")
+   
 
     return { ok: true, message: "Order placed successfully." };
   } catch (error) {

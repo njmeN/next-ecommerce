@@ -36,9 +36,18 @@ export default function AddProductForm() {
       reset();
       setImages([]);
       toast.success("Product added successfully!");
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      toast.error("Something went wrong. Please try again.");
+      if (err instanceof Error) {
+      
+        if (err.message.includes("SKU") || err.message.includes("Invalid input")) {
+          toast.error(err.message);
+        } else {
+          toast.error("Something went wrong. Please try again later.");
+        }
+      } else {
+        toast.error("Something went wrong. Please try again later.");
+      }
     }
   };
 

@@ -16,3 +16,9 @@ export type SessionUser = {
     status: "loading" | "authenticated" | "unauthenticated";
   };
   
+  export type AddressActionState = {
+    ok: boolean;
+    message?: string;
+    errors?: Record<string, string[]>;
+  };
+  

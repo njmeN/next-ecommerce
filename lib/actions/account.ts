@@ -12,8 +12,10 @@ import {
   pickForm,
   UpdateUsernameSchema,
   AddressSchema,
+  AddressValues,
 } from "@/lib/validation";
 import bcrypt from "bcryptjs";
+import { AddressActionState } from "../types/session";
 
 type State = {
   ok?: boolean;
@@ -49,23 +51,31 @@ export async function updateUsernameAction(data: { username: string }) {
     return { ok: false, message: "Database error" };
   }
 }
-
-export async function updateAddressAction(prevState: State | null, formData: FormData): Promise<State> {
+export async function updateAddressAction(
+  _prev: unknown,
+  data: AddressValues
+): Promise<{ ok: boolean; message?: string; errors?: Record<string, string[]> }> {
   const userId = await requireUserId();
-  const parsed = AddressSchema.safeParse({ address: String(formData.get("address") ?? "") });
+
+  const parsed = AddressSchema.safeParse(data);
   if (!parsed.success) {
     return { ok: false, errors: parsed.error.flatten().fieldErrors };
   }
+
   try {
-    await prisma.user.update({ where: { id: userId }, data: { address: parsed.data.address } });
-    revalidatePath("/account/address");
+    await prisma.user.update({
+      where: { id: userId },
+      data: { address: parsed.data.address },
+    });
+
+    revalidatePath("/account/update-address");
+
     return { ok: true, message: "Address updated successfully" };
   } catch (error) {
-    console.error(error);
+    console.error("Update address error:", error);
     return { ok: false, message: "Database error" };
   }
 }
-
 export async function changePasswordAction(data: { currentPassword: string; newPassword: string; confirmPassword: string }) {
   const session = await auth();
   const userId = session?.user?.id;
@@ -175,12 +185,20 @@ export async function addProductAction(_prev: unknown, data: AdminAddProductValu
   if (!parsed.success) throw new Error("Invalid input");
 
   try {
+
+    const existing = await prisma.product.findUnique({ where: { sku: parsed.data.sku } });
+    if (existing) {
+      throw new Error("SKU already exists");
+    }
+
     await prisma.product.create({ data: parsed.data });
     revalidatePath("/account/products");
   } catch (error) {
     console.error(error);
+    throw error; 
   }
 }
+
 
 export async function deleteUser(formData: FormData) {
   const session = await auth();
