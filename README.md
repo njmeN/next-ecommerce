@@ -1,8 +1,8 @@
 A **Next.js** e-commerce project with **PostgreSQL (Prisma)** backend, authentication, cart, and order management. This project demonstrates a full-stack setup with basic e-commerce features.
 Features
 •	**Authentication**
-- Email/password and OAuth (Google)
-- Session management with `next-auth`
+- Email/password and OAuth (Google) and Session management with `next-auth`
+- Admin and User dashboard
 •	**Product Management**
 - Add, edit, and view products
 - Product images upload
