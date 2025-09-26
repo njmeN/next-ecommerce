@@ -15,7 +15,7 @@ Features
 •	**User Profile**
 - Update username and shipping address
 > Note: Payment integration, Email SMTP and advanced filters/search are not implemented yet.
-Technologies Used
+-Technologies Used
 1.	Next.js (App Router)
 2.	React 
 3.	TypeScript
@@ -49,17 +49,18 @@ npm run dev
 15.	Open [http://localhost:3000](http://localhost:3000) in your browser.
 Project Structure
 /app
-  /account      # User profile, orders, address
-  /cart         # Shopping cart pages
-  /shop         # Product listing and details
-/lib
-  /actions      # Server-side actions for CRUD
-  /validation   # Zod schemas
-  /contexts     # React contexts (cart, session)
-/components    # Reusable UI components
-/prisma        # Prisma schema
+  -/account      # User profile, orders, address
+  -/cart         # Shopping cart pages
+-/shop         # Product listing and details
+-/lib
+ - /actions      # Server-side actions for CRUD
+  -/validation   # Zod schemas
+  -/contexts     # React contexts (cart, session)
+-/components    # Reusable UI components
+-/prisma        # Prisma schema
 Notes
-•	OAuth login requires correct callback URLs for development and production.
-•	All data is stored in PostgreSQL via Prisma.
-•	Error handling is implemented for database operations.
-•	Some features like payment, search filters, and admin order management are planned but not yet implemented.
+</br>
+•	OAuth login requires correct callback URLs for development and production.</br>
+•	All data is stored in PostgreSQL via Prisma.</br>
+•	Error handling is implemented for database operations.</br>
+•	Some features like payment, search filters, and admin order management are planned but not yet implemented.</br>
