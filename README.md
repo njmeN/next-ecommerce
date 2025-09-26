@@ -49,15 +49,15 @@ npm run dev
 15.	Open [http://localhost:3000](http://localhost:3000) in your browser.
 Project Structure
 /app
-  -/account      # User profile, orders, address
-  -/cart         # Shopping cart pages
--/shop         # Product listing and details
--/lib
- - /actions      # Server-side actions for CRUD
-  -/validation   # Zod schemas
-  -/contexts     # React contexts (cart, session)
--/components    # Reusable UI components
--/prisma        # Prisma schema
+  </br>/account      # User profile, orders, address
+    </br>/cart         # Shopping cart pages
+  </br>/shop         # Product listing and details
+  </br>/lib
+   </br>/actions      # Server-side actions for CRUD
+   </br>/validation   # Zod schemas
+   </br>/contexts     # React contexts (cart, session)
+  </br>/components    # Reusable UI components
+  </br>/prisma        # Prisma schema
 Notes
 </br>
 •	OAuth login requires correct callback URLs for development and production.</br>
